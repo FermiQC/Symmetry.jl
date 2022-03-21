@@ -1,2 +1,2 @@
 # Symmetry.jl
-Symmetry adapted linear combinations of atomic basis functions
+Handling of molecular symmetry, including character table generation and SALCs.
