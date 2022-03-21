@@ -1,0 +1,8 @@
+PG:C2v
+Ops: [E,C2,sigmav,sigmavp]
+Irreps: [A1,A2,B1,B2]
+#Ordered Characters
+1, 1, 1, 1
+1, 1,-1,-1
+1,-1, 1,-1
+1,-1,-1, 1
