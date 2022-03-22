@@ -1,5 +1,6 @@
 module Symmetry
 using LinearAlgebra
+import Base
 
 tol = 1E-5
 
