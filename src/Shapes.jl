@@ -33,3 +33,11 @@ struct Rep
     l::Int
     name
 end
+
+function Base.:(==)(A::Symel, B::Symel)
+    if sum(A.rrep .- B.rrep) < tol
+        return true
+    else
+        return false
+    end
+end

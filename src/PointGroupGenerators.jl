@@ -73,14 +73,14 @@ end
 
 function generate_C2(n)
     if n % 2 == 0
-        nn = div(n,2)
+        nn = 2*n
     else
         nn = n
     end
     symels = []
     x_axis = [1 0 0]' # Orient C2 and σv along x-axis
     rot_mat = Cn([0 0 1]', n)
-    for i = 1:nn
+    for i = 1:n
         axis = (rot_mat ^ i) * x_axis
         push!(symels, Symel("C_2($(i % n + 1))", Cn(axis, 2)))
     end

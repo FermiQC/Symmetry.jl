@@ -1,22 +1,3 @@
-import Base
-using LinearAlgebra
-using Diagonalizations
-include("Shapes.jl")
-include("Transformations.jl")
-include("PointGroupGenerators.jl")
-include("MultiplicationTable.jl")
-include("ctab_hard.jl")
-tol = 1E-5
-
-
-function Base.:(==)(A::Symel, B::Symel)
-    if sum(A.rrep .- B.rrep) < tol
-        return true
-    else
-        return false
-    end
-end
-
 function parse_ctfile(ctfilename::String)
     ctstring = read(ctfilename, String)
     parse_ctstring(ctstring)
@@ -45,7 +26,6 @@ end
 
 function pg_to_symels(PG)
     pg = parse_pg_str(PG)
-    println(pg)
     symels = [Symel("E", [1 0 0; 0 1 0; 0 0 1])]
     σh = [1 0 0; 0 1 0; 0 0 -1]
     if pg.family == "C"
@@ -85,7 +65,7 @@ function pg_to_symels(PG)
                 push!(symels, Symel("i", i()))
                 n = div(pg.n, 2)
                 σds = generate_σd(n)
-                c2s = generate_C2(2*pg.n)
+                c2s = generate_C2(pg.n)
             else
                 n = pg.n
                 σds = []
@@ -178,22 +158,22 @@ function pg_to_chartab(PG)
     irreps = []
     if pg.family == "C"
         if pg.subfamily == "v"
-            println("Cv")
+            Cnv_irr(pg.n)
         elseif pg.subfamily == "h"
-            println("Ch")
+            Cnh_irr(pg.n)
         else
-            println("C")
+            Cn_irrmat(pg.n)
         end
     elseif pg.family == "D"
         if pg.subfamily == "d"
-            println("Dd")
+            Dnd_irr(pg.n)
         elseif pg.subfamily == "h"
-            println("Dh")
+            Dnh_irr(pg.n)
         else
-            println("D")
+            Dn_irr(pg.n)
         end
     elseif pg.family == "S"
-        println("S")
+        Sn_irr(pg.n)
     else
         if pg.family == "T"
             if pg.subfamily == "h"

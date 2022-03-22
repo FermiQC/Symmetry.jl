@@ -87,7 +87,7 @@ function Cnv_irr(n)
     end
     if n % 2 == 0
         nirr = round(Int,(n/2)+3)
-        names[2] = "B1"
+        names[3] = "B1"
         insert!(names, 4, "B2")
         chars = vcat(chars[1:3,:], chars[3,:]', chars[4:end,:])
         σv = zeros(nirr)
@@ -135,7 +135,7 @@ end
 
 function Sn_irr(n)
     if n % 4 == 0
-        names, classes, cnchars = Cn_irrmat(n)
+        names, classes, chars = Cn_irrmat(n)
     elseif n % 2 == 0
         ni = round(Int, n/2)
         names, classes, cnchars = Cn_irrmat(ni)
@@ -153,6 +153,7 @@ function Sn_irr(n)
     else
         throw(ArgumentError("Odd number n for S group"))
     end
+    return names, classes, chars
 end
 
 function Dn_irr(n)
@@ -175,7 +176,7 @@ function Dn_irr(n)
     end
     if n % 2 == 0
         nirr = round(Int,(n/2)+3)
-        names[2] = "B1"
+        names[3] = "B1"
         insert!(names, 4, "B2")
         chars = vcat(chars[1:3,:], chars[3,:]', chars[4:end,:])
         C2p = zeros(nirr)
@@ -202,7 +203,7 @@ function Dnh_irr(n)
             names[i] = names[i]*"g"
         end
         append!(names, newnames)
-        dncharsi = -1 * cnchars
+        dncharsi = -1 * dnchars
         top = hcat(dnchars, dnchars)
         bot = hcat(dnchars, dncharsi)
         chars = vcat(top, bot)
@@ -230,7 +231,6 @@ function Dnd_irr(n)
         insert!(names, 2, "A2")
         chars = vcat(chars[1,:]', chars[1,:]', chars[2:end,:])
         for i = 2:n2
-            println(i, n2-i+2)
             if i == n2-i+2 || i > n2-i+2
                 break
             end
@@ -248,7 +248,6 @@ function Dnd_irr(n)
         chars = hcat(chars, C2p, σd)
     else
         names, classes, dnchars = Dn_irr(n)
-        println(names)
         classes = collect(1:2*n)
         newnames = []
         for i = 1:length(names)
